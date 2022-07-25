@@ -1,19 +1,5 @@
 import { useReducer } from "react";
-
-const initialState = {
-  todos: [
-    {
-      id: 1,
-      description: "Scrum meeting at 10 am",
-      done: false
-    },
-    {
-      id: 2,
-      description: "Burn Jira task at 6pm",
-      done: false
-    }
-  ]
-};
+import { useLocalStorage } from "../hooks/useStorage";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -48,5 +34,10 @@ function reducer(state, action) {
 }
 
 export function useTodoReducer() {
+  const [todosItems] = useLocalStorage("todos");
+  const initialState = {
+    todos: todosItems ? todosItems : []
+  };
+
   return useReducer(reducer, initialState);
 }

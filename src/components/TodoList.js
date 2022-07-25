@@ -1,10 +1,13 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Todos from "./Todos";
 import { useTodoReducer } from "./TodoReducer";
+import { useLocalStorage } from "../hooks/useStorage";
 
 export default function TodoList() {
   const [state, dispatch] = useTodoReducer();
   const { todos } = state;
+  const [todosItems, setTodoItems] = useLocalStorage("todos", todos);
+
   const addInputRef = useRef();
   const handleAddTodo = () => {
     const value = addInputRef.current.value;
@@ -19,6 +22,12 @@ export default function TodoList() {
       addInputRef.current.value = "";
     }
   };
+
+  useEffect(() => {
+    console.log("Hello todos change");
+    setTodoItems(todos);
+  }, [todos]);
+
   return (
     <div>
       <h3>Todos</h3>
@@ -27,7 +36,7 @@ export default function TodoList() {
         <button onClick={handleAddTodo}>ADD</button>
       </div>
       <div>
-        <Todos todos={todos} dispatch={dispatch} />
+        <Todos todos={todosItems} dispatch={dispatch} />
       </div>
     </div>
   );
