@@ -1,0 +1,22 @@
+.App {
+  font-family: sans-serif;
+  margin: 0.2rem;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+ul li:hover {
+  color: lightcoral;
+}
+
+ul li.done {
+  color: lightcoral;
+  text-decoration: line-through;
+}
